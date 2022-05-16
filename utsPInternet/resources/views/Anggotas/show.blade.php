@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('Jumbotron', 'Detail Anggota')
+@section('jumbotron', 'Detail Teman')
 
 @section('content')
     <div class="row">
@@ -18,7 +18,7 @@
                         <h5 class="mb-0">{{ $anggota->nama }} </h5>
                         <h6 class="text-info">{{ $anggota->no_telp }}</h6>
                         <p class="mb-0">{{ $anggota->alamat }}</p>
-                        <a href="{{ url('anggota') }}/{{ $anggota->id }}/edit" class="card-link">Edit</a>
+                        <a href="{{ url('teman') }}/{{ $anggota->id }}/edit" class="card-link">Edit</a>
                         <a href="#" class="card-link">Hapus</a>
                     </div>
                 </div>

@@ -39,7 +39,7 @@ class AnggotasController extends Controller
         // Validasi Data Yang Dikirim User
         $validatedData = $request->validate([
             'nama' => 'required|unique:anggotas|max:255',
-            'no_telp' => 'required|numeric|max:30',
+            'no_telp' => 'required|numeric',
             'alamat' => 'required|max:255'
         ]);
 
@@ -47,7 +47,7 @@ class AnggotasController extends Controller
         Anggotas::create($validatedData);
 
         // Redirect Ke Halaman Index
-        return redirect('anggotas.index');
+        return redirect('/teman');
 
     }
 
@@ -83,22 +83,20 @@ class AnggotasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, Anggotas $anggota)
+    public function update(Request $request, $id)
     {
-        
+        // Validasi Data Yang Dikirim
         $validatedData = $request->validate([
             'nama' => 'required|max:255',
             'no_telp' => 'required|numeric',
             'alamat' => 'required|max:255'
         ]);
         
-        return $validatedData;
-        // // update data
-        // Anggotas::where('id', $anggota->id)
-        //         ->update($validatedData);
+        // update data
+        Anggotas::find($id)->update($validatedData);
 
-        // // redirect ke halaman index
-        // return redirect('anggota');
+        // redirect ke halaman index
+        return redirect('/teman');
     }
 
     /**
@@ -112,6 +110,6 @@ class AnggotasController extends Controller
         // Hapus Data Yang Dipilih
         Anggotas::find($id)->delete();
         // redirect ke halaman index
-        return redirect('anggota');
+        return redirect('teman');
     }
 }

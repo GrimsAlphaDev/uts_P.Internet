@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('jumbotron', 'Edit Anggota')
-@section('subtext', 'Edit Data Anggota')
+@section('jumbotron', 'Teman')
+@section('subtext', 'Edit Data teman')
 
 @section('content')
 
     <div class="card d-flex p-2">
-        <form action="{{ url('anggota') }}/{{ $anggota->id }}" method="post">
+        <form action="/teman/{{ $anggota->id }}" method="post">
             @csrf
             @method('PUT')
 
@@ -31,7 +31,8 @@
                 <input type="text"
                     class="form-control border border-1 border-black
             @error('no_telp') is-invalid @enderror ps-2 "
-                    value="{{ old('no_telp', $anggota->no_telp) }}" id="no_telp" name="no_telp" placeholder="Masukan No Telefon">
+                    value="{{ old('no_telp', $anggota->no_telp) }}" id="no_telp" name="no_telp"
+                    placeholder="Masukan No Telefon">
                 @error('no_telp')
                     <div class="invalid-feedback">
                         {{ $message }}

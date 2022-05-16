@@ -19,5 +19,5 @@ Route::get('/', function () {
 });
 
 Route::resources([
-    'anggota' => AnggotasController::class,
+    'teman' => AnggotasController::class,
 ]);
