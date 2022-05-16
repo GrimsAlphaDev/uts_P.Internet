@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\AnggotasController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GroupsController;
+use App\Http\Controllers\AnggotasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +21,5 @@ Route::get('/', function () {
 
 Route::resources([
     'teman' => AnggotasController::class,
+    'group' => GroupsController::class,
 ]);
