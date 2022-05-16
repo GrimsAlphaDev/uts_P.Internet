@@ -50,9 +50,16 @@
               <ul class="navbar-nav navbar-nav-hover ms-auto">
 
                 <li class="nav-item dropdown dropdown-hover mx-2">
-                  <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" href="/">
-                    <i class="material-icons opacity-6 me-2 text-md">home</i>
-                       Anggota 
+                  <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" href="/teman">
+                    <i class="material-icons opacity-6 me-2 text-md">person</i>
+                       Teman 
+                    </i>
+                  </a>
+                  </li>
+                <li class="nav-item dropdown dropdown-hover mx-2">
+                  <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" href="/group">
+                    <i class="material-icons opacity-6 me-2 text-md">people</i>
+                       Group
                     </i>
                   </a>
                   </li>

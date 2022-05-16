@@ -43,7 +43,7 @@ class AnggotasController extends Controller
         // Validasi Data Yang Dikirim User
         $validatedData = $request->validate([
             'nama' => 'required|unique:anggotas|max:255',
-            'no_telp' => 'required|numeric|max:20',
+            'no_telp' => 'required|numeric',
             'alamat' => 'required|max:255'
         ]);
 
@@ -52,7 +52,6 @@ class AnggotasController extends Controller
 
         // Redirect Ke Halaman Index
         return redirect('/anggotas.index');
-
     }
 
     /**
@@ -78,12 +77,13 @@ class AnggotasController extends Controller
      */
     public function edit($id)
     {
+
         //  Ambil Data Anggota Dari Table Anggota di database berdasarkan id yang dikirim
         $validatedData = Anggotas::findOrFail($id);
 
         //  Kembalikan ke tampilan edit.blade.php dan kirimkan data anggota
         return view('anggotas.edit', compact('validatedData'));
-    
+ 
     }
 
     /**
@@ -93,12 +93,13 @@ class AnggotasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, Anggotas $anggota)
+    public function update(Request $request, $id)
     {
+
         // Validasi Data Yang Dikirim User
         $validatedData = $request->validate([
             'nama' => 'required|max:255',
-            'no_telp' => 'required|numeric|max:20',
+            'no_telp' => 'required|numeric',
             'alamat' => 'required|max:255'
         ]);
 
@@ -108,6 +109,7 @@ class AnggotasController extends Controller
 
         // redirect ke halaman index
         return redirect('/anggotas.index');
+
     }
 
     /**
@@ -121,6 +123,6 @@ class AnggotasController extends Controller
         // Hapus Data Yang Dipilih
         Anggotas::find($id)->delete();
         // redirect ke halaman index
-        return redirect('/anggotas/index');
+        return redirect('teman');
     }
 }
