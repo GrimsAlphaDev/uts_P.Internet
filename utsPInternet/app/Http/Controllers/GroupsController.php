@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Anggotas;
 use Illuminate\Http\Request;
 
-class AnggotasController extends Controller
+class GroupsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +13,7 @@ class AnggotasController extends Controller
      */
     public function index()
     {
-        $anggotas = Anggotas::orderBy('id', 'desc')->paginate(3);
-        return view('anggotas.index' , compact('anggotas'));
+        //
     }
 
     /**
@@ -25,7 +23,7 @@ class AnggotasController extends Controller
      */
     public function create()
     {
-        return view('anggotas.create');
+        //
     }
 
     /**
@@ -36,19 +34,7 @@ class AnggotasController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi Data Yang Dikirim User
-        $validatedData = $request->validate([
-            'nama' => 'required|unique:anggotas|max:255',
-            'no_telp' => 'required|numeric|max:20',
-            'alamat' => 'required|max:255'
-        ]);
-
-        // simpan ke database
-        Anggotas::create($validatedData);
-
-        // Redirect Ke Halaman Index
-        return redirect('/anggotas/index');
-
+        //
     }
 
     /**
