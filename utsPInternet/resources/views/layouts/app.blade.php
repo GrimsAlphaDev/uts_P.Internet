@@ -50,7 +50,7 @@
               <ul class="navbar-nav navbar-nav-hover ms-auto">
 
                 <li class="nav-item dropdown dropdown-hover mx-2">
-                  <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" href="/">
+                  <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" href="/anggota">
                     <i class="material-icons opacity-6 me-2 text-md">home</i>
                        Anggota 
                     </i>

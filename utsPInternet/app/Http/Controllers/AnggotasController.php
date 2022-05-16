@@ -14,7 +14,7 @@ class AnggotasController extends Controller
      */
     public function index()
     {
-        $anggotas = Anggotas::orderBy('id', 'desc')->paginate(3);
+        $anggotas = Anggotas::orderBy('id', 'desc')->paginate(6);
         return view('anggotas.index' , compact('anggotas'));
     }
 
@@ -39,7 +39,7 @@ class AnggotasController extends Controller
         // Validasi Data Yang Dikirim User
         $validatedData = $request->validate([
             'nama' => 'required|unique:anggotas|max:255',
-            'no_telp' => 'required|numeric|max:20',
+            'no_telp' => 'required|numeric|max:30',
             'alamat' => 'required|max:255'
         ]);
 
@@ -47,7 +47,7 @@ class AnggotasController extends Controller
         Anggotas::create($validatedData);
 
         // Redirect Ke Halaman Index
-        return redirect('/anggotas/index');
+        return redirect('anggotas.index');
 
     }
 
@@ -71,8 +71,8 @@ class AnggotasController extends Controller
      */
     public function edit($id)
     {
-        $validatedData = Anggotas::findOrFail($id);
-        return view('anggotas.edit', compact('validatedData'));
+        $anggota = Anggotas::findOrFail($id)    ;
+        return view('anggotas.edit', compact('anggota'));
     
     }
 
@@ -85,18 +85,20 @@ class AnggotasController extends Controller
      */
     public function update(Request $request, $id, Anggotas $anggota)
     {
+        
         $validatedData = $request->validate([
             'nama' => 'required|max:255',
-            'no_telp' => 'required|numeric|max:20',
+            'no_telp' => 'required|numeric',
             'alamat' => 'required|max:255'
         ]);
+        
+        return $validatedData;
+        // // update data
+        // Anggotas::where('id', $anggota->id)
+        //         ->update($validatedData);
 
-        // update data
-        Anggotas::where('id', $anggota->id)
-                ->update($validatedData);
-
-        // redirect ke halaman index
-        return redirect('/anggotas/index');
+        // // redirect ke halaman index
+        // return redirect('anggota');
     }
 
     /**
@@ -110,6 +112,6 @@ class AnggotasController extends Controller
         // Hapus Data Yang Dipilih
         Anggotas::find($id)->delete();
         // redirect ke halaman index
-        return redirect('/anggotas/index');
+        return redirect('anggota');
     }
 }
