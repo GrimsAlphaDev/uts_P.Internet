@@ -50,7 +50,7 @@ class GroupsController extends Controller
         Groups::create($validatedData);
 
         // Redirect Ke Halaman Index
-        return redirect('/groups.index');
+        return redirect('/group');
     }
 
     /**
@@ -105,7 +105,7 @@ class GroupsController extends Controller
         $grup->update($validatedData);
 
         //  Redirect Ke Halaman Index
-        return redirect('/groups.index');
+        return redirect('/group');
     }
 
     /**
@@ -120,6 +120,6 @@ class GroupsController extends Controller
         Groups::find($id)->delete();
          
          // redirect ke halaman index
-         return redirect('/group.index');
+         return redirect('/group');
     }
 }

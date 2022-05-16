@@ -15,7 +15,7 @@ class AnggotasController extends Controller
     public function index()
     {
         // Ambil Data Anggota Dari Table Anggota di database dan urutkan berdasarkan id yang paling besar
-        $anggotas = Anggotas::orderBy('id', 'desc')->paginate(3);
+        $anggotas = Anggotas::orderBy('id', 'desc')->paginate(6);
 
         // Kembalikan view index.blade.php dan kirimkan data anggota
         return view('anggotas.index' , compact('anggotas'));
@@ -51,7 +51,7 @@ class AnggotasController extends Controller
         Anggotas::create($validatedData);
 
         // Redirect Ke Halaman Index
-        return redirect('/anggotas.index');
+        return redirect('/teman');
     }
 
     /**
@@ -79,10 +79,10 @@ class AnggotasController extends Controller
     {
 
         //  Ambil Data Anggota Dari Table Anggota di database berdasarkan id yang dikirim
-        $validatedData = Anggotas::findOrFail($id);
+        $anggota = Anggotas::findOrFail($id);
 
         //  Kembalikan ke tampilan edit.blade.php dan kirimkan data anggota
-        return view('anggotas.edit', compact('validatedData'));
+        return view('anggotas.edit', compact('anggota'));
  
     }
 
@@ -104,11 +104,10 @@ class AnggotasController extends Controller
         ]);
 
         // update data di database
-        Anggotas::where('id', $anggota->id)
-                ->update($validatedData);
+        Anggotas::find($id)->update($validatedData);
 
         // redirect ke halaman index
-        return redirect('/anggotas.index');
+        return redirect('/teman');
 
     }
 
