@@ -2866,6 +2866,10 @@
     min-height: unset;
   }
   
+  .bordercust {
+    border: 1px solid #d2d6da;
+  }
+
   .form-control-color {
     width: 3rem;
     height: auto;
