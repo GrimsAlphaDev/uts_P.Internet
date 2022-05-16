@@ -59,7 +59,8 @@ class AnggotasController extends Controller
      */
     public function show($id)
     {
-        //
+        $anggota = Anggotas::findOrFail($id);
+        return view('anggotas.show', compact('anggota'));
     }
 
     /**
@@ -70,7 +71,9 @@ class AnggotasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $validatedData = Anggotas::findOrFail($id);
+        return view('anggotas.edit', compact('validatedData'));
+    
     }
 
     /**
@@ -80,9 +83,20 @@ class AnggotasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, Anggotas $anggota)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required|max:255',
+            'no_telp' => 'required|numeric|max:20',
+            'alamat' => 'required|max:255'
+        ]);
+
+        // update data
+        Anggotas::where('id', $anggota->id)
+                ->update($validatedData);
+
+        // redirect ke halaman index
+        return redirect('/anggotas/index');
     }
 
     /**
@@ -93,6 +107,9 @@ class AnggotasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Hapus Data Yang Dipilih
+        Anggotas::find($id)->delete();
+        // redirect ke halaman index
+        return redirect('/anggotas/index');
     }
 }
