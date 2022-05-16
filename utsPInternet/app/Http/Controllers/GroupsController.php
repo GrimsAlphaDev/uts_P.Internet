@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Groups;
 use Illuminate\Http\Request;
 
 class GroupsController extends Controller
@@ -13,7 +14,11 @@ class GroupsController extends Controller
      */
     public function index()
     {
-        //
+         // Ambil Data Grup Dari Table grups di database dan urutkan berdasarkan id yang paling besar
+         $groups = Groups::orderBy('id', 'desc')->paginate(6);
+
+         // Kembalikan ke tampilan index.blade.php dan kirimkan data grups
+         return view('group.index' , compact('groups'));
     }
 
     /**
@@ -23,7 +28,8 @@ class GroupsController extends Controller
      */
     public function create()
     {
-        //
+         //  Kembalikan Ke Tampilan create.blade.php
+         return view('group.create');
     }
 
     /**
@@ -34,7 +40,17 @@ class GroupsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validasi Data Yang Dikirim User
+        $validatedData = $request->validate([
+            'nama_grup' => 'required|unique:anggotas|max:255',
+            'deskripsi' => 'required|max:255'
+        ]);
+
+        // simpan ke database Grup
+        Groups::create($validatedData);
+
+        // Redirect Ke Halaman Index
+        return redirect('/groups.index');
     }
 
     /**
@@ -45,7 +61,11 @@ class GroupsController extends Controller
      */
     public function show($id)
     {
-        //
+        //  Ambil Data grup Dari Table grup di database berdasarkan id yang dikirim
+        $grup = Groups::findOrFail($id);
+
+        //  Kembalikan ke tampilan show.blade.php dan kirimkan data grup
+        return view('grup.show', compact('grup'));
     }
 
     /**
@@ -56,7 +76,11 @@ class GroupsController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Ambil Data grup Dari Table grup di database berdasarkan id yang dikirim
+        $grup = Groups::findOrFail($id);
+
+        // Kembalikan ke tampilan edit.blade.php dan kirimkan data grup
+        return view('grup.edit', compact('grup'));
     }
 
     /**
@@ -68,7 +92,20 @@ class GroupsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //  Validasi Data Yang Dikirim User
+        $validatedData = $request->validate([
+            'nama_grup' => 'required|unique:anggotas|max:255',
+            'deskripsi' => 'required|max:255'
+        ]);
+
+        //  Ambil Data Grup Dari Table grup di database berdasarkan id yang dikirim
+        $grup = Groups::findOrFail($id);
+
+        //  Update Data Grup Dari Table grup di database
+        $grup->update($validatedData);
+
+        //  Redirect Ke Halaman Index
+        return redirect('/groups.index');
     }
 
     /**
@@ -79,6 +116,10 @@ class GroupsController extends Controller
      */
     public function destroy($id)
     {
-        //
+         // Hapus Data Yang Dipilih
+        Groups::find($id)->delete();
+         
+         // redirect ke halaman index
+         return redirect('/group.index');
     }
 }
