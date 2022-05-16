@@ -13,7 +13,7 @@ class AnggotasController extends Controller
      */
     public function index()
     {
-        return view('anggota.index');
+       
     }
 
     /**
