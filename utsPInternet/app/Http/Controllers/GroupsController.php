@@ -40,9 +40,10 @@ class GroupsController extends Controller
      */
     public function store(Request $request)
     {
+
         // Validasi Data Yang Dikirim User
         $validatedData = $request->validate([
-            'nama_grup' => 'required|unique:anggotas|max:255',
+            'nama_grup' => 'required|unique:groups|max:255',
             'deskripsi' => 'required|max:255'
         ]);
 
@@ -65,7 +66,7 @@ class GroupsController extends Controller
         $grup = Groups::findOrFail($id);
 
         //  Kembalikan ke tampilan show.blade.php dan kirimkan data grup
-        return view('grup.show', compact('grup'));
+        return view('group.show', compact('grup'));
     }
 
     /**
@@ -77,10 +78,10 @@ class GroupsController extends Controller
     public function edit($id)
     {
         // Ambil Data grup Dari Table grup di database berdasarkan id yang dikirim
-        $grup = Groups::findOrFail($id);
+        $group = Groups::findOrFail($id);
 
         // Kembalikan ke tampilan edit.blade.php dan kirimkan data grup
-        return view('grup.edit', compact('grup'));
+        return view('group.edit', compact('group'));
     }
 
     /**
@@ -94,7 +95,7 @@ class GroupsController extends Controller
     {
         //  Validasi Data Yang Dikirim User
         $validatedData = $request->validate([
-            'nama_grup' => 'required|unique:anggotas|max:255',
+            'nama_grup' => 'required|max:255',
             'deskripsi' => 'required|max:255'
         ]);
 

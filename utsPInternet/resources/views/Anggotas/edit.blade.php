@@ -12,7 +12,6 @@
 
             <h2 class="text-center">Edit Data Anggota</h2>
 
-            <input type="hidden" name="id" value="{{ $anggota->id }}">
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama</label>
                 <input type="text"

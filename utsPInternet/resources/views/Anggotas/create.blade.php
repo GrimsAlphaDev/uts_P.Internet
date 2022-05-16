@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('bgimg', 'friendbg')
 @section('Jumbotron', 'Anggota')
 
 @section('content')
@@ -37,8 +38,8 @@
             <div class="mb-3">
                 <label for="alamat" class="form-label">Alamat</label>
                 <textarea name="alamat" class="form-control border border-1 border-black ps-2 
-                @error('alamat') is-invalid @enderror" id="alamat" cols="30" value="{{ old('alamat') }}"
-                    rows="10" name="alamat"></textarea>
+                @error('alamat') is-invalid @enderror" id="alamat" cols="30" 
+                    rows="10" name="alamat">{{ old('alamat') }}</textarea>
                     @error('alamat')
                     <div class="invalid-feedback">
                         {{ $message }}

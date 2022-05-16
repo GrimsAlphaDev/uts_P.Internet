@@ -73,7 +73,7 @@
   </div>
 
   <header class="header-2">
-    <div class="page-header min-vh-75 relative addbg" style="">
+    <div class="page-header min-vh-75 relative indexbg " style="">
       <span class="mask bg-gradient-primary opacity-4"></span>
       <div class="container">
         <div class="row">

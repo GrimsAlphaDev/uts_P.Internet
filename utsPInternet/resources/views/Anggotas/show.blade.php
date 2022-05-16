@@ -19,7 +19,11 @@
                         <h6 class="text-info">{{ $anggota->no_telp }}</h6>
                         <p class="mb-0">{{ $anggota->alamat }}</p>
                         <a href="{{ url('teman') }}/{{ $anggota->id }}/edit" class="card-link">Edit</a>
-                        <a href="#" class="card-link">Hapus</a>
+                        <form action="/teman/{{ $anggota->id }}" method="post">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" onclick="return confirm('Apakah yakin ingin menghapus data {{ $anggota->nama }}?')" class="card-link border-0 bg-transparent"><a class="card-link marg">Hapus</a></button>
+                        </form>
                     </div>
                 </div>
 

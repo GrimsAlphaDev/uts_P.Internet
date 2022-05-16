@@ -27118,9 +27118,10 @@ pre[class*="language-"] {
   opacity: .7;
 }
 
-.addbg {
-  background-image: url("../img/bg2.jpg")
+.indexbg {
+  background-image: url("https://source.unsplash.com/800x400?Technology")
 }
+
 
 .token.property,
 .token.tag,

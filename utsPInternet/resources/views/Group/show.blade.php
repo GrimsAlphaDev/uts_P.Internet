@@ -9,7 +9,7 @@
                 <div class="col-lg-4 col-md-6 col-12 mt-n5">
                     <a href="javascript:;">
                         <div class="p-3 pe-md-0">
-                            <img class="w-100 border-radius-md shadow-lg" src="{{ asset('style/img/bg.jpg') }}" alt="image">
+                            <img class="w-100 border-radius-md shadow-lg" src="https://source.unsplash.com/400x400?group" alt="image">
                         </div>
                     </a>
                 </div>
@@ -17,8 +17,12 @@
                     <div class="card-body ps-lg-0">
                         <h5 class="mb-0">{{ $grup->nama_grup }} </h5>
                         <p class="mb-0">{{ $grup->deskripsi }}</p>
-                        <a href="/anggota/{{ $grup->id }}/edit" class="card-link">Edit</a>
-                        <a href="#" class="card-link">Hapus</a>
+                        <a href="/group/{{ $grup->id }}/edit" class="card-link">Edit</a>
+                        <form action="/group/{{ $grup->id }}" method="post">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" onclick="return confirm('Apakah yakin ingin menghapus data {{ $grup->nama_grup }}?')" class="card-link border-0 bg-transparent"><a class="card-link marg">Hapus</a></button>
+                        </form>
                     </div>
                 </div>
 
