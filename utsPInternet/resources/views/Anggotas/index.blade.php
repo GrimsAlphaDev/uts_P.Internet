@@ -9,6 +9,7 @@
 
     <div class="row">
         @foreach($anggotas as $anggota)
+        
             <div class="m-2 col d-flex">
                 <div class="card m-2" style="width: 18rem;">
                     <div class="card-body">

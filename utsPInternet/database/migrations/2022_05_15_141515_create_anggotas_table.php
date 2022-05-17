@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('anggotas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id')->nullable();
+            $table->foreignId('groups_id')->nullable();
             $table->string('nama');
             $table->string('no_telp');
             $table->text('alamat');
