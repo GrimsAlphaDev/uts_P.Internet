@@ -15,7 +15,7 @@ class AnggotasController extends Controller
     public function index()
     {
         // Ambil Data Anggota Dari Table Anggota di database dan urutkan berdasarkan id yang paling besar
-        $anggotas = Anggotas::orderBy('id', 'desc')->paginate(6);
+        $anggotas = Anggotas::orderBy('id', 'desc')->paginate(8);
 
         // Kembalikan view index.blade.php dan kirimkan data anggota
         return view('anggotas.index' , compact('anggotas'));

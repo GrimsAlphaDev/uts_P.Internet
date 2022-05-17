@@ -23,3 +23,6 @@ Route::resources([
     'teman' => AnggotasController::class,
     'group' => GroupsController::class,
 ]);
+
+Route::get('/group/{id}/add', [GroupsController::class, 'addAnggota']);
+Route::put('/group/updateAnggota/{id}', [GroupsController::class, 'updateAnggota']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Anggotas;
 use App\Models\Groups;
 use Illuminate\Http\Request;
 
@@ -65,8 +66,11 @@ class GroupsController extends Controller
         //  Ambil Data grup Dari Table grup di database berdasarkan id yang dikirim
         $grup = Groups::findOrFail($id);
 
+        // Ambil Data Teman Yang Berada Dalam Grup yang Dipilih
+        $anggotas = Anggotas::where('groups_id', $id)->get();
+
         //  Kembalikan ke tampilan show.blade.php dan kirimkan data grup
-        return view('group.show', compact('grup'));
+        return view('group.show', ['grup' => $grup, 'anggotas' => $anggotas]);
     }
 
     /**
@@ -123,4 +127,32 @@ class GroupsController extends Controller
          // redirect ke halaman index
          return redirect('/group');
     }
+
+    public function addAnggota($id) {
+        
+        // Ambil Data Grup Dari Table grup di database berdasarkan id yang dikirim
+        $grup = Groups::findOrFail($id);
+
+        // Ambil Data Anggota yang belum masuk ke dalam grup
+        $anggotas = Anggotas::where('groups_id', null)->get();
+
+        // Arahkan Ke Tampilan AddAnggota
+        return view('group.addAnggota', ['grup' => $grup, 'anggotas' => $anggotas]);
+
+    }
+
+    public function updateAnggota(Request $request, $id) {
+
+        // Ambil Data Grup Dari Table grup di database berdasarkan id yang dikirim
+        $grup = Groups::findOrFail($id);
+
+        // Ambil Data Anggota yang ingin dimasukan ke dalam grup
+        $anggota = Anggotas::findOrFail($request->anggota_id);
+        // Update Data Anggota yang sudah masuk ke dalam grup
+        $anggota->update(['groups_id' => $grup->id]);
+
+        // Kembalikan Ke Tampilan group
+        return redirect("/group/{$grup->id}");
+    }
+
 }
