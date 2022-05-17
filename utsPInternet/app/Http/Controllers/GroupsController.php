@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Anggotas;
 use App\Models\Groups;
+use App\Models\history;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class GroupsController extends Controller
 {
@@ -15,11 +17,11 @@ class GroupsController extends Controller
      */
     public function index()
     {
-         // Ambil Data Grup Dari Table grups di database dan urutkan berdasarkan id yang paling besar
-         $groups = Groups::orderBy('id', 'desc')->paginate(6);
+        // Ambil Data Grup Dari Table grups di database dan urutkan berdasarkan id yang paling besar
+        $groups = Groups::orderBy('id', 'desc')->paginate(6);
 
-         // Kembalikan ke tampilan index.blade.php dan kirimkan data grups
-         return view('group.index' , compact('groups'));
+        // Kembalikan ke tampilan index.blade.php dan kirimkan data grups
+        return view('group.index', compact('groups'));
     }
 
     /**
@@ -29,8 +31,8 @@ class GroupsController extends Controller
      */
     public function create()
     {
-         //  Kembalikan Ke Tampilan create.blade.php
-         return view('group.create');
+        //  Kembalikan Ke Tampilan create.blade.php
+        return view('group.create');
     }
 
     /**
@@ -66,11 +68,17 @@ class GroupsController extends Controller
         //  Ambil Data grup Dari Table grup di database berdasarkan id yang dikirim
         $grup = Groups::findOrFail($id);
 
+        //  Ambil Jumlah Anggota Dari Table anggota di database berdasarkan id grup yang dikirim
+        $jumlah = Anggotas::where('groups_id', $id)->count();
+
+        // Hitung Anggota Yang Pernah Masuk Grup 
+        $history = History::where('groups_id', $id)->count();
+
         // Ambil Data Teman Yang Berada Dalam Grup yang Dipilih
-        $anggotas = Anggotas::where('groups_id', $id)->get();
+        $anggotas = Anggotas::where('groups_id', $id)->paginate(6);
 
         //  Kembalikan ke tampilan show.blade.php dan kirimkan data grup
-        return view('group.show', ['grup' => $grup, 'anggotas' => $anggotas]);
+        return view('group.show', ['grup' => $grup, 'anggotas' => $anggotas, 'jumlah' => $jumlah, 'history' => $history]);
     }
 
     /**
@@ -121,15 +129,26 @@ class GroupsController extends Controller
      */
     public function destroy($id)
     {
-         // Hapus Data Yang Dipilih
+
+        // Ambil Data Anggota Yang Berada Di Grup
+        $anggotas = Anggotas::where('groups_id', $id)->get();
+
+        // Buat atribut id_grups di table anggota menjadi null
+        foreach ($anggotas as $anggota) {
+            $anggota->groups_id = null;
+            $anggota->save();
+        }
+
+        // Hapus Data Yang Dipilih
         Groups::find($id)->delete();
-         
-         // redirect ke halaman index
-         return redirect('/group');
+
+        // redirect ke halaman index
+        return redirect('/group');
     }
 
-    public function addAnggota($id) {
-        
+    public function addAnggota($id)
+    {
+
         // Ambil Data Grup Dari Table grup di database berdasarkan id yang dikirim
         $grup = Groups::findOrFail($id);
 
@@ -138,21 +157,57 @@ class GroupsController extends Controller
 
         // Arahkan Ke Tampilan AddAnggota
         return view('group.addAnggota', ['grup' => $grup, 'anggotas' => $anggotas]);
-
     }
 
-    public function updateAnggota(Request $request, $id) {
 
+    public function updateAnggota(Request $request, $id)
+    {
         // Ambil Data Grup Dari Table grup di database berdasarkan id yang dikirim
         $grup = Groups::findOrFail($id);
 
         // Ambil Data Anggota yang ingin dimasukan ke dalam grup
         $anggota = Anggotas::findOrFail($request->anggota_id);
+
+        // masukan Data Ke Dalam History
+        // Jika Belum Ada History pada Friends di tabel history
+        if (history::where('anggotas_id', $anggota->id)->where('groups_id', $grup->id)->count() == 0) {
+            history::create([
+                'anggotas_id' => $anggota->id,
+                'groups_id' => $grup->id,
+                'status' => 'masuk'
+            ]);
+        } else {
+            // Jika Sudah Ada History pada Friends di tabel history
+            history::where('anggotas_id', $anggota->id)->where('groups_id', $grup->id)->update([
+                'status' => 'masuk'
+            ]);
+        }
+
+
         // Update Data Anggota yang sudah masuk ke dalam grup
-        $anggota->update(['groups_id' => $grup->id]);
+        $anggota->update(['groups_id' => $grup->id]);  
 
         // Kembalikan Ke Tampilan group
         return redirect("/group/{$grup->id}");
     }
 
+    public function deleteAnggota($id, Request $request)
+    {
+
+        // Ambil Data Anggota Dari Table anggota di database berdasarkan id yang dikirim
+        $anggota = Anggotas::findOrFail($id);
+
+        // Ambil Id Grup
+        $grup = $request->id_grup;
+
+        // Update Data Anggota Dalam History
+        History::where('anggotas_id', $anggota->id)->update(['status' => "Keluar"]);
+
+        // Update Data Anggota yang sudah keluar dari grup
+        $anggota->update(['groups_id' => null]);
+
+
+        // Kembalikan Ke Tampilan group
+        return redirect("/group/{$grup}");
+    }
 }

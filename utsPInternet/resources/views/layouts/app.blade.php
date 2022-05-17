@@ -28,7 +28,6 @@
 
 <body class="index-page bg-gray-200">
 
-
   <!-- Navbar -->
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
@@ -50,14 +49,14 @@
               <ul class="navbar-nav navbar-nav-hover ms-auto">
 
                 <li class="nav-item dropdown dropdown-hover mx-2">
-                  <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" href="/teman">
+                  <a class="nav-link ps-2 d-flex cursor-pointer align-items-center {{ Request::is('/teman*') ? 'active' : '' }} " href="/teman">
                     <i class="material-icons opacity-6 me-2 text-md">person</i>
                        Teman 
                     </i>
                   </a>
                   </li>
                 <li class="nav-item dropdown dropdown-hover mx-2">
-                  <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" href="/group">
+                  <a class="nav-link ps-2 d-flex cursor-pointer align-items-center {{ Request::is('/group*') ? 'active' : '' }}" href="/group">
                     <i class="material-icons opacity-6 me-2 text-md">people</i>
                        Group
                     </i>

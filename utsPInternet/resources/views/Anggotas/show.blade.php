@@ -3,6 +3,7 @@
 @section('jumbotron', 'Detail Teman')
 
 @section('content')
+@dd($grup)
     <div class="row">
         <div class="card card-profile mt-4">
             <div class="row">
@@ -18,6 +19,7 @@
                         <h5 class="mb-0">{{ $anggota->nama }} </h5>
                         <h6 class="text-info">{{ $anggota->no_telp }}</h6>
                         <p class="mb-0">{{ $anggota->alamat }}</p>
+                        <p>Grup Yang Dimasuki : {{ $grup->groups }}</p>
                         <a href="{{ url('teman') }}/{{ $anggota->id }}/edit" class="card-link">Edit</a>
                         <form action="/teman/{{ $anggota->id }}" method="post">
                             @method('DELETE')

@@ -17,7 +17,7 @@ class GroupsFactory extends Factory
     public function definition()
     {
         return [
-            'nama_grup' => $this->faker->name,
+            'nama_grup' => "Grup " . $this->faker->company,
             'deskripsi' => $this->faker->text,
         ];
     }

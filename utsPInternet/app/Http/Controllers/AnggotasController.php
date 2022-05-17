@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anggotas;
+use App\Models\history;
 use Illuminate\Http\Request;
+use PHPUnit\TextUI\XmlConfiguration\Group;
 
 class AnggotasController extends Controller
 {
@@ -65,8 +67,11 @@ class AnggotasController extends Controller
         //  Ambil Data Anggota Dari Table Anggota di database berdasarkan id yang dikirim
         $anggota = Anggotas::findOrFail($id);
 
+        // Ambil Data Anggota Berada Di Dalam Grup Apa Saja
+        $grup = history::where('anggotas_id', $anggota->id)->where('status', 'masuk')->get();
+
         //  Kembalikan ke tampilan show.blade.php dan kirimkan data anggota
-        return view('anggotas.show', compact('anggota'));
+        return view('anggotas.show', ['anggota' => $anggota, 'grup' => $grup]);
     }
 
     /**

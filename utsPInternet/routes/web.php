@@ -26,3 +26,4 @@ Route::resources([
 
 Route::get('/group/{id}/add', [GroupsController::class, 'addAnggota']);
 Route::put('/group/updateAnggota/{id}', [GroupsController::class, 'updateAnggota']);
+Route::put('/group/deleteAnggota/{id}', [GroupsController::class, 'deleteAnggota']);
