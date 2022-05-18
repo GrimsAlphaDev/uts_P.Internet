@@ -65,14 +65,15 @@ class AnggotasController extends Controller
      */
     public function show($id)
     {
+        
         //  Ambil Data Anggota Dari Table Anggota di database berdasarkan id yang dikirim
         $anggota = Anggotas::findOrFail($id);
 
         // Ambil Data Anggota Berada Di Dalam Grup Apa Saja
-        
+
         $grups = history::where('anggotas_id', $anggota->id)->where('status', 'masuk')->get();
         if(count($grups) > 0){
-        $grup = Groups::findOrFail($grups[0]->groups_id);
+            $grup = Groups::findOrFail($grups[0]->groups_id);
         } else {
             $grup = null;
         }

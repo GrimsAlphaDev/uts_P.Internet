@@ -139,6 +139,14 @@ class GroupsController extends Controller
             $anggota->save();
         }
 
+        // Menghapus id_grup di table history
+        $history = History::where('groups_id', $id)->get();
+        foreach ($history as $hist) {
+            $hist->groups_id = null;
+            $hist->status = 'keluar';
+            $hist->save();
+        }
+
         // Hapus Data Yang Dipilih
         Groups::find($id)->delete();
 

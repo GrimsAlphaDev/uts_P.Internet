@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('Jumbotron', 'Tambah Grup')
+@section('jumbotron', 'Grup')
+@section('subtext', 'Tambah Grup')
 
 @section('content')
 

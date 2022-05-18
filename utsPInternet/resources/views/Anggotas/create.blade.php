@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('bgimg', 'friendbg')
-@section('Jumbotron', 'Anggota')
+@section('jumbotron', 'Anggota')
+@section('subtext', 'Tambah Anggota')
 
 @section('content')
     <div class="card d-flex p-2">
