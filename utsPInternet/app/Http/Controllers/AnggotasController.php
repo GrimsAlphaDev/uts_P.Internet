@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anggotas;
+use App\Models\Groups;
 use App\Models\history;
 use Illuminate\Http\Request;
 use PHPUnit\TextUI\XmlConfiguration\Group;
@@ -68,10 +69,38 @@ class AnggotasController extends Controller
         $anggota = Anggotas::findOrFail($id);
 
         // Ambil Data Anggota Berada Di Dalam Grup Apa Saja
-        $grup = history::where('anggotas_id', $anggota->id)->where('status', 'masuk')->get();
+        
+        $grups = history::where('anggotas_id', $anggota->id)->where('status', 'masuk')->get();
+        if(count($grups) > 0){
+        $grup = Groups::findOrFail($grups[0]->groups_id);
+        } else {
+            $grup = null;
+        }
 
+        // Cek Teman Sudah Berada Pada Grup Apa Saja
+        $previus = history::where('anggotas_id', $anggota->id)->where('status', 'keluar')->get();
+        // Cocokan dengan data grup
+        if(count($previus) > 0) {
+
+        for ($i = 0; $i < count($previus); $i++) {
+        $try[] =  $previus[$i]->groups_id;
+        }
+       }
+    
+         else {
+            $try = [];
+        }
+        if(count($try) > 0){
+        $data = Groups::whereIn('id', $try)->get();
+        } else {
+            $data = null;
+        }
+
+
+        
+        
         //  Kembalikan ke tampilan show.blade.php dan kirimkan data anggota
-        return view('anggotas.show', ['anggota' => $anggota, 'grup' => $grup]);
+        return view('anggotas.show', ['anggota' => $anggota, 'grup' => $grup, 'data' => $data]);
     }
 
     /**

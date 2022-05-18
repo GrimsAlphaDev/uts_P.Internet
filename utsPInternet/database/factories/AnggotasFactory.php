@@ -18,7 +18,6 @@ class AnggotasFactory extends Factory
     {
         return [
             'nama' => $this->faker->name(),
-            'groups_id' => rand(1,3),
             'no_telp' => $this->faker->phoneNumber(),
             'alamat' => $this->faker->address()
 
