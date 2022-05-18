@@ -17,6 +17,7 @@
                     <div class="card-body ps-lg-0">
                         <h4 class="mb-0">{{ $grup->nama_grup }} </h4>
                         <p class="mt-2 mb-2">{{ $grup->deskripsi }}</p>
+                        <h5>Jumlah Orang Yang Keluar Dari Grup : {{ $keluar }}  Orang</h5>
 
                         <div class="container text-center">
                             <div class="row cols-2">

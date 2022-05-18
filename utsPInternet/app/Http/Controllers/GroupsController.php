@@ -74,12 +74,15 @@ class GroupsController extends Controller
         // Hitung Anggota Yang Pernah Masuk Grup 
         $history = History::where('groups_id', $id)->count();
 
+        //  Hitung anggota yang keluar dari grup
+        $keluar = History::where('groups_id', $id)->where('status', 'Keluar')->count();
+
         // Ambil Data Teman Yang Berada Dalam Grup yang Dipilih 
         $anggotas = Anggotas::where('groups_id', $id)->orderBy('updated_at', 'desc')->paginate(6);
 
 
         //  Kembalikan ke tampilan show.blade.php dan kirimkan data grup
-        return view('group.show', ['grup' => $grup, 'anggotas' => $anggotas, 'jumlah' => $jumlah, 'history' => $history]);
+        return view('group.show', ['grup' => $grup, 'anggotas' => $anggotas, 'jumlah' => $jumlah, 'history' => $history, 'keluar' => $keluar]);
     }
 
     /**
