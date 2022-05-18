@@ -62,6 +62,12 @@
                     </i>
                   </a>
                   </li>
+                  <li class="nav-item ms-lg-auto">
+                    <a class="nav-link nav-link-icon me-2" href="https://github.com/GrimsAlphaDev/uts_P.Internet.git" target="_blank">
+                      <i class="fa fa-github me-1"></i>
+                      <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Star us on Github">Github</p>
+                    </a>
+                  </li>
               </ul>
             </div>
           </div>

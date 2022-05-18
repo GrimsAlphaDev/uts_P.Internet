@@ -9,7 +9,7 @@
             @method('PUT')
             @csrf
            
-                <h2 class="text-center">Edit Data Group</h2>
+                <h2 class="text-center">Edit Data Group</h2> 
 
             <div class="mb-3">
                 <label for="nama_grup" class="form-label">Nama Group</label>
