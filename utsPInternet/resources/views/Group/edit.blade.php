@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('Jumbotron', 'Edit Group')
+@section('jumbotron', 'Edit Group')
 
 @section('content')
 

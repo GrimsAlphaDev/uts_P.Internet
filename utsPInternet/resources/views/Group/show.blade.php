@@ -22,27 +22,28 @@
                             <div class="row cols-2">
                                 <div class="card m-2" style="width: 18rem;">
                                     <div class="card-body">
-                                      <h6 class="card-title">Jumlah Anggota Yang Pernah Join Kedalam Grup 
+                                        <h6 class="card-title">Jumlah Anggota Yang Pernah Join Kedalam Grup
                                         </h6>
                                         <p>{{ $history }}</p>
                                     </div>
-                                  </div>
-                                  <div class="card m-2" style="width: 18rem;">
+                                </div>
+                                <div class="card m-2" style="width: 18rem;">
                                     <div class="card-body">
-                                      <h6 class="card-title">Jumlah Anggota Yang Berada Dalam Grup </h6>
-                                      <p>{{ $jumlah }}</p>
+                                        <h6 class="card-title">Jumlah Anggota Yang Berada Dalam Grup </h6>
+                                        <p>{{ $jumlah }}</p>
                                     </div>
-                                  </div>
+                                </div>
                             </div>
                         </div>
-                          
+
 
                         <h6>List Teman Yang Berada Di Grup Ini : </h6>
                         <div class="container mb-5">
                             <div class="row row-cols-3 text-center">
                                 @foreach ($anggotas as $anggota)
                                     <div class="card col m-1 p-2" style="width: 30%">
-                                        <p>{{ $anggota->nama }} </p>
+                                        <p> <a href="../teman/{{ $anggota->id }}">{{ $anggota->nama }} </a></p>
+                                        </ul>
                                         <form action="/group/deleteAnggota/{{ $anggota->id }}" method="post">
                                             @method('PUT')
                                             @csrf

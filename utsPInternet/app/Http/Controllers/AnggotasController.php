@@ -21,8 +21,8 @@ class AnggotasController extends Controller
         $anggotas = Anggotas::orderBy('id', 'desc')->paginate(8);
 
         // Kembalikan view index.blade.php dan kirimkan data anggota
-        return view('anggotas.index' , compact('anggotas'));
-    } 
+        return view('anggotas.index', compact('anggotas'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -65,14 +65,13 @@ class AnggotasController extends Controller
      */
     public function show($id)
     {
-        
+
         //  Ambil Data Anggota Dari Table Anggota di database berdasarkan id yang dikirim
         $anggota = Anggotas::findOrFail($id);
 
-        // Ambil Data Anggota Berada Di Dalam Grup Apa Saja
-
+        // Ambil Data Anggota Berada Di Dalam Grup Apa
         $grups = history::where('anggotas_id', $anggota->id)->where('status', 'masuk')->get();
-        if(count($grups) > 0){
+        if (count($grups) > 0) {
             $grup = Groups::findOrFail($grups[0]->groups_id);
         } else {
             $grup = null;
@@ -80,26 +79,25 @@ class AnggotasController extends Controller
 
         // Cek Teman Sudah Berada Pada Grup Apa Saja
         $previus = history::where('anggotas_id', $anggota->id)->where('status', 'keluar')->get();
-        // Cocokan dengan data grup
-        if(count($previus) > 0) {
 
-        for ($i = 0; $i < count($previus); $i++) {
-        $try[] =  $previus[$i]->groups_id;
-        }
-       }
-    
-         else {
+        // Cocokan dengan data grup
+        if (count($previus) > 0) {
+
+            for ($i = 0; $i < count($previus); $i++) {
+                $try[] =  $previus[$i]->groups_id;
+            }
+        } else {
             $try = [];
         }
-        if(count($try) > 0){
-        $data = Groups::whereIn('id', $try)->get();
+        if (count($try) > 0) {
+            $data = Groups::whereIn('id', $try)->get();
         } else {
             $data = null;
         }
 
 
-        
-        
+
+
         //  Kembalikan ke tampilan show.blade.php dan kirimkan data anggota
         return view('anggotas.show', ['anggota' => $anggota, 'grup' => $grup, 'data' => $data]);
     }
@@ -118,7 +116,6 @@ class AnggotasController extends Controller
 
         //  Kembalikan ke tampilan edit.blade.php dan kirimkan data anggota
         return view('anggotas.edit', compact('anggota'));
- 
     }
 
     /**
@@ -143,7 +140,6 @@ class AnggotasController extends Controller
 
         // redirect ke halaman index
         return redirect('/teman');
-
     }
 
     /**

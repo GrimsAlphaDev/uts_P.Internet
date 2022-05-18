@@ -18,7 +18,7 @@ class AnggotasFactory extends Factory
     {
         return [
             'nama' => $this->faker->name(),
-            'no_telp' => $this->faker->phoneNumber(),
+            'no_telp' => '08'. rand(1000000000, 9999999999),
             'alamat' => $this->faker->address()
 
         ];
